@@ -2,9 +2,7 @@ package com.sparta.todoparty.global.exception.handler;
 
 import com.sparta.todoparty.global.exception.dto.ExceptionResponseDto;
 import com.sparta.todoparty.global.exception.type.CustomException;
-import com.sparta.todoparty.user.exception.AlreadyExistEmailException;
-import com.sparta.todoparty.user.exception.AlreadyExistNicknameException;
-import com.sparta.todoparty.user.exception.AlreadyExistUsernameException;
+import com.sparta.todoparty.user.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,5 +31,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(CustomException.ALREADY_EXIST_USERNAME.getStatusCode())
                 .body(CustomException.ALREADY_EXIST_USERNAME.toDto());
+    }
+
+    @ExceptionHandler(NotFoundUser.class)
+    public ResponseEntity<ExceptionResponseDto> handleNotFoundUser() {
+        return ResponseEntity
+                .status(CustomException.NOT_FOUND_USER.getStatusCode())
+                .body(CustomException.NOT_FOUND_USER.toDto());
+    }
+
+    @ExceptionHandler(NotMatchPassword.class)
+    public ResponseEntity<ExceptionResponseDto> handleNotMatchPassword() {
+        return ResponseEntity
+                .status(CustomException.NOT_MATCH_PASSWORD.getStatusCode())
+                .body(CustomException.NOT_MATCH_PASSWORD.toDto());
     }
 }

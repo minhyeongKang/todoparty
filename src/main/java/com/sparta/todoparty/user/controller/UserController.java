@@ -1,6 +1,8 @@
 package com.sparta.todoparty.user.controller;
 
+import com.sparta.todoparty.user.dto.request.LoginRequestDto;
 import com.sparta.todoparty.user.dto.request.SignUpRequestDto;
+import com.sparta.todoparty.user.dto.response.LoginResponseDto;
 import com.sparta.todoparty.user.dto.response.SignUpResponseDto;
 import com.sparta.todoparty.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +25,11 @@ public class UserController {
     public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
         SignUpResponseDto signUpResponseDto = userService.signUp(signUpRequestDto);
         return ResponseEntity.ok(signUpResponseDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+        LoginResponseDto loginResponseDto = userService.login(loginRequestDto);
+        return ResponseEntity.ok(loginResponseDto);
     }
 }
