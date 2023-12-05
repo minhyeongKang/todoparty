@@ -1,6 +1,5 @@
 package com.sparta.todoparty.global.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.todoparty.global.securrity.filter.JwtAuthenticationFilter;
 import com.sparta.todoparty.global.securrity.filter.JwtAuthorizationFilter;
 import com.sparta.todoparty.global.securrity.filter.JwtExceptionHandlerFilter;
@@ -69,10 +68,8 @@ public class WebSecurityConfig {
 
         http.authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
-//                .requestMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**")
-//                .permitAll()
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/v1/users/login", "/api/v1/users")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/users/**", "/api/v1/users")
                                 .permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/boards/**").permitAll()
                                 .anyRequest().authenticated()
