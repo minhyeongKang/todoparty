@@ -1,14 +1,13 @@
 package com.sparta.todoparty.user.service.impl;
 
-import com.sparta.todoparty.global.securrity.jwt.JwtUtil;
-import com.sparta.todoparty.user.dto.request.LoginRequestDto;
 import com.sparta.todoparty.user.dto.request.SignUpRequestDto;
-import com.sparta.todoparty.user.dto.response.LoginResponseDto;
 import com.sparta.todoparty.user.dto.response.SignUpResponseDto;
 import com.sparta.todoparty.user.dto.response.UserResponseDto;
 import com.sparta.todoparty.user.entity.User;
 import com.sparta.todoparty.user.entity.UserRole;
-import com.sparta.todoparty.user.exception.*;
+import com.sparta.todoparty.user.exception.AlreadyExistEmailException;
+import com.sparta.todoparty.user.exception.AlreadyExistNicknameException;
+import com.sparta.todoparty.user.exception.AlreadyExistUsernameException;
 import com.sparta.todoparty.user.repository.UserRepository;
 import com.sparta.todoparty.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,6 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
 
     @Override
     public SignUpResponseDto signUp(final SignUpRequestDto signUpRequestDto) {
@@ -64,30 +62,6 @@ public class UserServiceImpl implements UserService {
                 .username(username)
                 .nickname(nickname)
                 .email(email)
-                .build();
-    }
-
-    @Override
-    public LoginResponseDto login(final LoginRequestDto loginRequestDto) {
-        String username = loginRequestDto.getUsername();
-        String password = loginRequestDto.getPassword();
-
-        // 사용자 확인
-        User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new NotFoundUser()
-        );
-
-        // 비밀번호 확인
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new NotMatchPassword();
-        }
-
-        // JWT 생성
-        String token = jwtUtil.createToken(user.getUsername(), user.getRole());
-
-        return LoginResponseDto.builder()
-                .id(user.getId())
-                .username(username)
                 .build();
     }
 

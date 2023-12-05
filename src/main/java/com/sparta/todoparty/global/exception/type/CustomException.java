@@ -32,7 +32,7 @@ public enum CustomException {
     NO_IMAGE_TYPE(400, "이미지 파일이 아닙니다."),
     NO_IMAGE_FILE(400, "이미지가 없습니다."),
     NOT_FOUND_USER(404, "사용자를 찾을 수 없습니다."),
-    NOT_MATCH_PASSWORD(400, "비밀번호가 일치하지 않습니다."),
+    NOT_MATCH_CHECK_PASSWORD(400, "비밀번호 확인 입력이 일치하지 않습니다."),
     NOT_MATCH_CURRENT_PASSWORD(400, "현재 비밀번호와 일치하지 않습니다."),
     NOT_MATCH_CONFIRMATION_PHRASE(400, "회원탈퇴 확인 문구가 일치하지 않습니다.");
 
